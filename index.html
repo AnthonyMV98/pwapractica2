@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Carrusel de Imágenes</title>
+    <style>
+        /* Establece el tamaño del carrusel y oculta las imágenes que no están activas */
+        #carrusel {
+            width: 500px;
+            height: 300px;
+            overflow: hidden;
+            position: relative;
+        }
+        /* Establece el tamaño de las imágenes y las oculta por defecto */
+        #carrusel img {
+            width: 100%;
+            height: auto;
+            display: none;
+            position: absolute;
+        }
+        /* Muestra la imagen que tiene la clase 'active' */
+        #carrusel img.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div id="carrusel">
+        <!-- Imágenes del carrusel -->
+        <img src="img/image1.jpg" class="active">
+        <img src="img/image2.jpg">
+        <img src="img/image3.jpg">
+    </div>
+    <!-- Botones para cambiar de imagen -->
+    <button onclick="imagenAnterior()">Anterior</button>
+    <button onclick="siguienteImagen()">Siguiente</button>
+
+    <script>
+        /* Obtiene todas las imágenes del carrusel */
+        var imagenes = Array.from(document.querySelectorAll('#carrusel img'));
+        var indiceActual = 0;
+
+        /* Muestra la imagen en el índice especificado */
+        function mostrarImagen(indice) {
+            imagenes.forEach(function(img, i) {
+                /* Si el índice de la imagen es igual al índice especificado, se muestra la imagen */
+                img.classList.toggle('active', i === indice);
+            });
+        }
+
+        /* Muestra la siguiente imagen */
+        function siguienteImagen() {
+            /* Aumenta el índice actual y lo mantiene dentro de los límites del array de imágenes */
+            indiceActual = (indiceActual + 1) % imagenes.length;
+            mostrarImagen(indiceActual);
+        }
+
+        /* Muestra la imagen anterior */
+        function imagenAnterior() {
+            /* Disminuye el índice actual y lo mantiene dentro de los límites del array de imágenes */
+            indiceActual = (indiceActual - 1 + imagenes.length) % imagenes.length;
+            mostrarImagen(indiceActual);
+        }
+    </script>
+</body>
+</html>
